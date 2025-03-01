@@ -25,13 +25,19 @@ def get_or_create_product(request):
         product.title = data["data"].get("title", "Unknown Title")
         product.description = data["data"].get("description", "")
         product.image = data["data"].get("image", "")
-        product.url = data["data"].get("url", url)
-        product.save()
+        product.url = url
+        product.category_id = data["data"].get("category_id", None)
+        product.has_stock = data["data"].get("in_stock", True)
+        product.number_sold = data["data"].get("number_sold", "0")
 
-    return JsonResponse({
-        "product_id": product.product_id,
+        product.save()  # Enregistrer le produit dans la base de données
+
+    return JsonResponse({"message": "Product retrieved", "product": {
         "title": product.title,
         "description": product.description,
         "image": product.image,
-        "url": product.url
-    })
+        "url": product.url,
+        "category_id": product.category_id,
+        "has_stock": product.has_stock,
+        "number_sold": product.number_sold,
+    }}, status=200)
