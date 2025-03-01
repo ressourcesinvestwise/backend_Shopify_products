@@ -137,3 +137,15 @@ MIDDLEWARE = [
     # autres middlewares...
 ]
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',  # Nom de la base Supabase
+        'USER': 'postgres.mmoszhruvkjawderszfj',   # Nom d'utilisateur Supabase
+        'PASSWORD': '999Informatique,',  # Mot de passe Supabase
+        'HOST': 'aws-0-eu-central-1.pooler.supabase.com',  # Remplace par l'hôte de Supabase
+        'PORT': '6543',  # Port par défaut de PostgreSQL
+    }
+}
