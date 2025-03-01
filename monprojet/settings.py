@@ -126,8 +126,14 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INSTALLED_APPS = [
-    # autres apps...
-    'corsheaders',
+    'django.contrib.admin',  # Assure-toi que cette ligne est bien là
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'corsheaders',  # Ajoute ceci si tu l’utilises
+    'products',  # Vérifie que ton app "products" est bien enregistrée
 ]
 
 ALLOWED_HOSTS = ['*']
