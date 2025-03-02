@@ -58,7 +58,7 @@ def get_or_create_product(request):
 def call_chatgpt_api(product_data):
     api_url = "https://api.openai.com/v1/chat/completions"
     headers = {
-        "Authorization": f"Bearer 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,"
+        "Authorization": f"Bearer ,"
         "Content-Type": "application/json"
     }
 
