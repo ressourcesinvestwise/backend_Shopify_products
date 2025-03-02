@@ -11,13 +11,17 @@ def fetch_product_data(product_id):
         'x-rapidapi-key': RAPIDAPI_KEY,
         'x-rapidapi-host': RAPIDAPI_HOST
     }
-    
+
     conn.request("GET", f"/product/descriptionv5?productId={product_id}&country=fr", headers=headers)
     res = conn.getresponse()
-    
+
+    data = res.read()
+
     # Ajoutez ceci pour le débogage
     print(f"Status: {res.status}")
-    print(f"Response Body: {res.read().decode('utf-8')}")
-    
-    data = res.read()
+    print(f"Response Body: {data.decode('utf-8')}")
+
+    if res.status != 200:  # Vérifier que la requête réussie
+        return {"error": "Failed to fetch data"}  # Retourner un message d'erreur
+
     return json.loads(data.decode("utf-8"))
