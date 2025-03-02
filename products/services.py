@@ -14,6 +14,10 @@ def fetch_product_data(product_id):
     
     conn.request("GET", f"/product/descriptionv5?productId={product_id}", headers=headers)
     res = conn.getresponse()
-    data = res.read()
     
+    # Ajoutez ceci pour le débogage
+    print(f"Status: {res.status}")
+    print(f"Response Body: {res.read().decode('utf-8')}")
+    
+    data = res.read()
     return json.loads(data.decode("utf-8"))
