@@ -45,3 +45,42 @@ def get_or_create_product(request):
         "has_stock": product.has_stock,
         "number_sold": product.number_sold,
     }}, status=200)
+
+
+
+def call_chatgpt_api(product_data):
+    api_url = "https://api.openai.com/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer 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",  # Remplacez par votre clé API OpenAI
+        "Content-Type": "application/json"
+    }
+
+    # Construisez le prompt que vous voulez envoyer à ChatGPT
+    prompt = f"""
+    Transforme les données du produit suivant en un tableau contenant :
+    - Titre
+    - Sous-titre
+    - Prix
+    - 4 bénéfices
+
+    Détails du produit :
+    Titre: {product_data['title']}
+    Description: {product_data['description']}
+    Prix: {product_data.get('price', 'Indisponible')}
+
+    Réponds sous forme de tableau.
+    """
+
+    data = {
+        "model": "gpt-4o-mini",  # Modèle à utiliser
+        "messages": [{"role": "user", "content": prompt}],
+        "max_tokens": 150
+    }
+
+    response = requests.post(api_url, headers=headers, json=data)
+
+    if response.status_code == 200:
+        return response.json()["choices"][0]["message"]["content"]
+    else:
+        print(f"Erreur lors de l'appel à l'API: {response.status_code}")
+        return None
