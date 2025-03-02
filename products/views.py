@@ -32,9 +32,16 @@ def get_or_create_product(request):
         product.number_sold = data["data"].get("number_sold", "0")
 
         product.save()  # Enregistrer le produit dans la base de données
+
     else:
-        # Pour les produits existants, vous pourriez éventuellement vouloir faire une mise à jour.
         print(f"Product already exists: {product_id}")
+
+    # Appel à l'API ChatGPT avec les données du produit
+    transformed_data = call_chatgpt_api({
+        "title": product.title,
+        "description": product.description,
+        "price": product.price,
+    })
 
     return JsonResponse({"message": "Product retrieved", "product": {
         "title": product.title,
@@ -44,14 +51,14 @@ def get_or_create_product(request):
         "category_id": product.category_id,
         "has_stock": product.has_stock,
         "number_sold": product.number_sold,
+        "transformed_data": transformed_data,
     }}, status=200)
-
 
 
 def call_chatgpt_api(product_data):
     api_url = "https://api.openai.com/v1/chat/completions"
     headers = {
-        "Authorization": f"Bearer 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",  # Remplacez par votre clé API OpenAI
+        "Authorization": f"Bearer ",  # Remplacez par votre clé API OpenAI
         "Content-Type": "application/json"
     }
 
