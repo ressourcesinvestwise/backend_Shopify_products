@@ -16,10 +16,10 @@ def get_or_create_product(request):
     # Vérifier si le produit est déjà en base
     product, created = Product.objects.get_or_create(product_id=product_id)
 
-    if created:
+   
+if created:
     # Ajoutez un peu de log pour le débogage
-    print(f"Creating new product: {product_id}")
-    # Récupérer les données via l'API
+     # Récupérer les données via l'API
     data = fetch_product_data(product_id)
     if "error" in data:
         return JsonResponse(data, status=500)
