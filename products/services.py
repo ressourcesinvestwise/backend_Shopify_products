@@ -12,7 +12,7 @@ def fetch_product_data(product_id):
         'x-rapidapi-host': RAPIDAPI_HOST
     }
     
-    conn.request("GET", f"/product/descriptionv5?productId={product_id}", headers=headers)
+    conn.request("GET", f"/product/descriptionv5?productId={product_id}&country=fr", headers=headers)
     res = conn.getresponse()
     
     # Ajoutez ceci pour le débogage
