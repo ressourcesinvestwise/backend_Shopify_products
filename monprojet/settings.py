@@ -139,8 +139,13 @@ INSTALLED_APPS = [
 ALLOWED_HOSTS = ['*']
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    # autres middlewares...
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',  # ✅ Doit être AVANT AuthenticationMiddleware
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # ✅ Essentiel pour l'auth
+    'django.contrib.messages.middleware.MessageMiddleware',  # ✅ Essentiel pour les messages
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 
